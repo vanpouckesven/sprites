@@ -11,15 +11,17 @@
 
 namespace Falsep\Tests\Sprites;
 
+use Imagine;
+
 use Falsep\Sprites\Generator;
 
-use Imagine\Gd\Imagine;
-
-class GeneratorTest extends \PHPUnit_Framework_TestCase
+class GeneratorTest extends Imagine\Test\ImagineTestCase
 {
     public function setUp()
     {
         $this->path = sys_get_temp_dir().'/falsep/sprites';
+
+        Generator::createDirectory($this->path);
     }
 
     public function tearDown()
@@ -29,23 +31,21 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testGenerate()
     {
-        $imagine = new Imagine();
+        $imagine = Generator::getImagineDriver();
         $generator = new Generator($imagine);
-
-        $generator
-            ->getFinder()
-            ->name('*.png')
-            ->in(__DIR__.'/Fixtures/flags');
 
         $targetImage = sprintf('%s/flags.png', $this->path);
         $targetStylesheet = sprintf('%s/flags.css', $this->path);
         $cssSelector = '.flag.';
 
+        $generator->getFinder()->name('*.png')->in(__DIR__.'/Fixtures/flags');
         $generator->generate($targetImage, $targetStylesheet, $cssSelector);
 
         $sprite = $imagine->open($targetImage);
         $this->assertEquals(161, $sprite->getSize()->getWidth());
         $this->assertEquals(11, $sprite->getSize()->getHeight());
+
+        // @todo make use of $this->assertImageEquals();
     }
 
     static public function clearDirectory($directory)

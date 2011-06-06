@@ -13,7 +13,10 @@ namespace Falsep\Sprites;
 
 use Symfony\Component\Finder\Finder;
 
-use Imagine\ImagineInterface,
+use Imagine\Gd\Imagine as GdImagine,
+    Imagine\Gmagick\Imagine as GmagickImagine,
+    Imagine\Imagick\Imagine as ImagickImagine,
+    Imagine\ImagineInterface,
     Imagine\Image\Box,
     Imagine\Image\Point;
 
@@ -32,10 +35,10 @@ class Generator
     /**
      * Constructor.
      *
-     * @param \Imagine\ImagineInterface $imagine
+     * @param \Imagine\ImagineInterface $imagine (optional)
      * @return void
      */
-    public function __construct(ImagineInterface $imagine)
+    public function __construct(ImagineInterface $imagine = null)
     {
         $this->imagine = $imagine;
     }
@@ -45,6 +48,10 @@ class Generator
      */
     public function getImagine()
     {
+        if (null === $this->imagine) {
+            $this->imagine = self::getImagineDriver();
+        }
+
         return $this->imagine;
     }
 
@@ -99,7 +106,7 @@ class Generator
             // @see http://sourcecookbook.com/en/recipes/8/function-to-slugify-strings-in-php
             $cssAsciify = function(\SplFileInfo $file) {
                 // replace non letter or digits by - and trim -
-                $ascii = trim(preg_replace('~[^\\pL\d]+~u', '-', $file->getBasename($file->getExtension())), '-');
+                $ascii = trim(preg_replace('~[^\\pL\d]+~u', '-', $file->getBasename(pathinfo($file->getBasename(), \PATHINFO_EXTENSION))), '-');
 
                 // transliterate
                 if (function_exists('iconv')) {
@@ -161,7 +168,7 @@ class Generator
      *
      * @throws \RuntimeException
      */
-    static protected function createDirectory($paths)
+    static public function createDirectory($paths)
     {
         if (!is_array($paths)) {
             $paths = array($paths);
@@ -171,6 +178,42 @@ class Generator
             if (!is_dir($dir = dirname($path)) && false === @mkdir($dir, 0777, true)) {
                 throw new \RuntimeException(sprintf('Unable to create directory "%s".', $dir));
             }
+        }
+    }
+
+    /**
+     * Returns an ImagineInterface instance.
+     *
+     * @param string $driver (optional)
+     * @return \Imagine\ImagineInterface
+     */
+    static public function getImagineDriver($driver = null)
+    {
+        if (null === $driver) {
+            switch (true) {
+                case function_exists('gd_info'):
+                    $driver = 'gd';
+                    break;
+                case class_exists('Gmagick'):
+                    $driver = 'gmagick';
+                    break;
+                case class_exists('Imagick'):
+                    $driver = 'imagick';
+                    break;
+            }
+        }
+
+        if (!in_array($driver, array('gd', 'gmagick', 'imagick'))) {
+            throw new \RuntimeException('Unable to determine Imagine driver.');
+        }
+
+        switch (strtolower($driver)) {
+            case 'gd':
+                return new GdImagine();
+            case 'gmagick':
+                return new GmagickImagine();
+            case 'imagick':
+                return new ImagickImagine();
         }
     }
 }

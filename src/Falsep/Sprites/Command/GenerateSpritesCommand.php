@@ -69,44 +69,8 @@ EOT
             $cssSelector = $input->getArgument('cssSelector')
         ));
 
-        $generator = new Generator($this->getImagineDriver($input->getOption('imagine')));
+        $generator = new Generator(Generator::getImagineDriver($input->getOption('imagine')));
         $generator->getFinder()->name($fileNamePattern)->in($sourceDirectory);
         $generator->generate($targetImage, $targetStylesheet, $cssSelector);
-    }
-
-    /**
-     * Returns an ImagineInterface instance.
-     *
-     * @param string $driver (optional)
-     * @return \Imagine\ImagineInterface
-     */
-    private function getImagineDriver($driver = null)
-    {
-        if (null === $driver) {
-            switch (true) {
-                case function_exists('gd_info'):
-                    $driver = 'gd';
-                    break;
-                case class_exists('Gmagick'):
-                    $driver = 'gmagick';
-                    break;
-                case class_exists('Imagick'):
-                    $driver = 'imagick';
-                    break;
-            }
-        }
-
-        if (!in_array($driver, array('gd', 'gmagick', 'imagick'))) {
-            throw new \RuntimeException('Unable to determine Imagine driver.');
-        }
-
-        switch (strtolower($driver)) {
-            case 'gd':
-                return new Imagine\Gd\Imagine();
-            case 'gmagick':
-                return new Imagine\Gmagick\Imagine();
-            case 'imagick':
-                return new Imagine\Imagick\Imagine();
-        }
     }
 }
