@@ -1,0 +1,12 @@
+[submodule "src/vendor/imagine"]
+	path = src/vendor/imagine
+	url = git://github.com/avalanche123/Imagine.git
+[submodule "src/vendor/Symfony/Component/ClassLoader"]
+	path = src/vendor/Symfony/Component/ClassLoader
+	url = git://github.com/symfony/ClassLoader.git
+[submodule "src/vendor/Symfony/Component/Finder"]
+	path = src/vendor/Symfony/Component/Finder
+	url = git://github.com/symfony/Finder.git
+[submodule "src/vendor/Symfony/Component/Console"]
+	path = src/vendor/Symfony/Component/Console
+	url = git://github.com/symfony/Console.git
