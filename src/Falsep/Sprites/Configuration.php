@@ -17,12 +17,29 @@ use Imagine\ImagineInterface;
 
 class Configuration
 {
+    const PROCESSOR_DYNAMIC = 'dynamic';
+    const PROCESSOR_FIXED = 'fixed';
+
     /**
      * The ImagineInterface instance.
      *
      * @var \Imagine\ImagineInterface
      */
     private $imagine;
+
+    /**
+     * The save() options for the Image instance.
+     *
+     * @var array
+     */
+    private $options = array();
+
+    /**
+     * The name of the image Processor instance.
+     *
+     * @var string
+     */
+    private $processor;
 
     /**
      * The Finder instance.
@@ -88,6 +105,27 @@ class Configuration
     }
 
     /**
+     * Returns the save() options for the Image instance.
+     *
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * Sets the save() options for the Image instance.
+     *
+     * @param array $options
+     * @return void
+     */
+    public function setOptions(array $options)
+    {
+        $this->options = $options;
+    }
+
+    /**
      * Returns the Finder instance.
      *
      * @return \Symfony\Component\Finder\Finder
@@ -132,6 +170,36 @@ class Configuration
     public function setImage($path)
     {
         $this->image = $path;
+    }
+
+    /**
+     * Returns the name of the image Processor instance to use.
+     *
+     * @return strings
+     */
+    public function getProcessor()
+    {
+        if (null === $this->processor) {
+            // fixed dimensions?
+            if (null !== $this->width || null !== $this->height) {
+                return self::PROCESSOR_FIXED;
+            }
+
+            return self::PROCESSOR_DYNAMIC;
+        }
+
+        return $this->processor;
+    }
+
+    /**
+     * Sets the name of the image Processor instance to use.
+     *
+     * @param string $name
+     * @return void
+     */
+    public function setProcessor($name)
+    {
+        $this->processor = $name;
     }
 
     /**
@@ -194,7 +262,7 @@ class Configuration
      */
     public function setStylesheet($path)
     {
-        $this->stylesheet = $stylesheet;
+        $this->stylesheet = $path;
     }
 
     /**

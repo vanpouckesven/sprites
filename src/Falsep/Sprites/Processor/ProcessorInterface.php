@@ -11,7 +11,22 @@
 
 namespace Falsep\Sprites\Processor;
 
+use Falsep\Sprites\Configuration;
+
 interface ProcessorInterface
 {
-    function process();
+    /**
+     * Processes the Configuration instance.
+     *
+     * @param \Falsep\Sprites\Configration
+     * @return void
+     */
+    function process(Configuration $config);
+
+    /**
+     * Returns the name of the Processor instance.
+     *
+     * @return string
+     */
+    function getName();
 }

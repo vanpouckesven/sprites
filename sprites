@@ -12,10 +12,12 @@
 
 use Symfony\Component\Console\Application;
 
-use Falsep\Sprites\Command\GenerateSpritesCommand;
+use Falsep\Sprites\Command\GenerateDynamicSpritesCommand,
+    Falsep\Sprites\Command\GenerateFixedSpritesCommand;
 
 require __DIR__.'/autoload.php';
 
 $console = new Application('Sprites', file_get_contents(__DIR__.'/VERSION'));
-$console->add(new GenerateSpritesCommand());
+$console->add(new GenerateDynamicSpritesCommand());
+$console->add(new GenerateFixedSpritesCommand());
 $console->run();

@@ -11,9 +11,14 @@
 
 namespace Falsep\Sprites\Processor;
 
+use Falsep\Sprites\Configuration;
+
 class FixedProcessor extends AbstractProcessor
 {
-    public function process()
+    /**
+     * {@inheritDoc}
+     */
+    public function process(Configuration $config)
     {
     }
 }

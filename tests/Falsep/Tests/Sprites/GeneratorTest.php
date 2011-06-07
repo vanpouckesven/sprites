@@ -11,64 +11,34 @@
 
 namespace Falsep\Tests\Sprites;
 
-use Imagine;
+use Falsep\Sprites\Configuration,
+    Falsep\Sprites\Generator,
+    Falsep\Sprites\Processor\DynamicProcessor,
+    Falsep\Sprites\Test\SpritesTestCase;
 
-use Falsep\Sprites\Generator;
-
-class GeneratorTest extends Imagine\Test\ImagineTestCase
+class GeneratorTest extends SpritesTestCase
 {
-    public function setUp()
+    public function testDynamicGeneration()
     {
-        $this->path = sys_get_temp_dir().'/falsep/sprites';
+        $configuration = new Configuration();
+        $configuration->setImagine($this->getImagine());
+        $configuration->setImage(sprintf('%s/flags.png', $this->path));
+        $configuration->setStylesheet(sprintf('%s/flags.css', $this->path));
+        $configuration->getFinder()->name('*.png')->in(__DIR__.'/Fixtures/flags');
 
-        Generator::createDirectory($this->path);
-    }
+        $processor = new DynamicProcessor();
+        $generator = new Generator(array($configuration), array($processor));
+        $generator->generate();
 
-    public function tearDown()
-    {
-        self::clearDirectory($this->path);
-    }
-
-    public function testGenerate()
-    {
-        $imagine = Generator::getImagineDriver();
-        $generator = new Generator($imagine);
-
-        $targetImage = sprintf('%s/flags.png', $this->path);
-        $targetStylesheet = sprintf('%s/flags.css', $this->path);
-        $cssSelector = '.flag.';
-
-        $generator->getFinder()->name('*.png')->in(__DIR__.'/Fixtures/flags');
-        $generator->generate($targetImage, $targetStylesheet, $cssSelector);
-
-        $sprite = $imagine->open($targetImage);
+        $sprite = $config->getImagine()->open($config->getImage());
         $this->assertEquals(161, $sprite->getSize()->getWidth());
         $this->assertEquals(11, $sprite->getSize()->getHeight());
 
         // @todo make use of $this->assertImageEquals();
     }
 
-    static public function clearDirectory($directory)
+    public function testFixedGeneration()
     {
-        if (!is_dir($directory)) {
-            return;
-        }
-
-        $fp = opendir($directory);
-        while (false !== $file = readdir($fp)) {
-            if (!in_array($file, array('.', '..')))
-            {
-                if (is_link($directory.'/'.$file)) {
-                    unlink($directory.'/'.$file);
-                } else if (is_dir($directory.'/'.$file)) {
-                    self::clearDirectory($directory.'/'.$file);
-                    rmdir($directory.'/'.$file);
-                } else {
-                    unlink($directory.'/'.$file);
-                }
-            }
-        }
-
-        closedir($fp);
+        $this->markTestIncomplete('Not implemented yet.');
     }
 }
