@@ -23,67 +23,52 @@ use Imagine\Gd\Imagine as GdImagine,
 class Generator
 {
     /**
-     * @var \Symfony\Component\Finder\Finder
+     * @var array
      */
-    protected $finder;
-
-    /**
-     * @var \Imagine\ImagineInterface
-     */
-    protected $imagine;
+    private $configs = array();
 
     /**
      * Constructor.
      *
-     * @param \Imagine\ImagineInterface $imagine (optional)
+     * @param array $configs (optional)
      * @return void
      */
-    public function __construct(ImagineInterface $imagine = null)
+    public function __construct(array $configs = array())
     {
-        $this->imagine = $imagine;
+        $this->setConfigurations($configs);
     }
 
     /**
-     * @return \Imagine\ImagineInterface
+     * Adds a Configuration instance.
+     *
+     * @param \Falsep\Sprites\Configuration $config
+     * @return void
      */
-    public function getImagine()
+    public function addConfiguration(Configuration $config)
     {
-        if (null === $this->imagine) {
-            $this->imagine = self::getImagineDriver();
+        $this->configs[] = $config;
+    }
+
+    /**
+     * Returns the Configuration instances.
+     *
+     * @return array
+     */
+    public function getConfigurations()
+    {
+        return $this->configs;
+    }
+
+    /**
+     * Returns the Configuration instances.
+     *
+     * @return array
+     */
+    public function setConfigurations(array $configs)
+    {
+        foreach ($configs as $config) {
+            $this->addConfiguration($config);
         }
-
-        return $this->imagine;
-    }
-
-    /**
-     * @param \Imagine\ImagineInterface $imagine
-     * @return void
-     */
-    public function setImagine(ImagineInterface $imagine)
-    {
-        $this->imagine = $imagine;
-    }
-
-    /**
-     * @return \Symfony\Component\Finder\Finder
-     */
-    public function getFinder()
-    {
-        if (null === $this->finder) {
-            $this->finder = new Finder();
-            $this->finder->files();
-        }
-
-        return $this->finder;
-    }
-
-    /**
-     * @param \Symfony\Component\Finder\Finder $finder
-     * @return void
-     */
-    public function setFinder(Finder $finder)
-    {
-        $this->finder = $finder;
     }
 
     /**
@@ -100,7 +85,7 @@ class Generator
      * @todo make $cssAsciify a normal callback
      * @todo make css generation a callback
      */
-    public function generate($targetImage, $targetStylesheet, $cssSelector, \Closure $cssAsciify = null)
+    /* public function generate($targetImage, $targetStylesheet, $cssSelector, \Closure $cssAsciify = null)
     {
         if (null === $cssAsciify) {
             // @see http://sourcecookbook.com/en/recipes/8/function-to-slugify-strings-in-php
@@ -160,60 +145,5 @@ class Generator
         if (false === @file_put_contents($targetStylesheet, $styles)) {
             throw new \RuntimeException(sprintf('Unable to write file "%s".', $targetStylesheet));
         }
-    }
-
-    /**
-     * @param array|string $paths
-     * @return void
-     *
-     * @throws \RuntimeException
-     */
-    static public function createDirectory($paths)
-    {
-        if (!is_array($paths)) {
-            $paths = array($paths);
-        }
-
-        foreach ($paths as $path) {
-            if (!is_dir($dir = dirname($path)) && false === @mkdir($dir, 0777, true)) {
-                throw new \RuntimeException(sprintf('Unable to create directory "%s".', $dir));
-            }
-        }
-    }
-
-    /**
-     * Returns an ImagineInterface instance.
-     *
-     * @param string $driver (optional)
-     * @return \Imagine\ImagineInterface
-     */
-    static public function getImagineDriver($driver = null)
-    {
-        if (null === $driver) {
-            switch (true) {
-                case function_exists('gd_info'):
-                    $driver = 'gd';
-                    break;
-                case class_exists('Gmagick'):
-                    $driver = 'gmagick';
-                    break;
-                case class_exists('Imagick'):
-                    $driver = 'imagick';
-                    break;
-            }
-        }
-
-        if (!in_array($driver, array('gd', 'gmagick', 'imagick'))) {
-            throw new \RuntimeException('Unable to determine Imagine driver.');
-        }
-
-        switch (strtolower($driver)) {
-            case 'gd':
-                return new GdImagine();
-            case 'gmagick':
-                return new GmagickImagine();
-            case 'imagick':
-                return new ImagickImagine();
-        }
-    }
+    } */
 }
