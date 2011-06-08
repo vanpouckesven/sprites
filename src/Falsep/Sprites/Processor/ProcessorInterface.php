@@ -29,4 +29,35 @@ interface ProcessorInterface
      * @return string
      */
     function getName();
+
+    /**
+     * Returns an options.
+     *
+     * @param string $key The option key.
+     * @return void
+     *
+     * @throws \InvalidArgumentException If the Processor does not support the option
+     */
+    function getOption($key);
+
+    /**
+     * Sets an options.
+     *
+     * @param string $key The option key.
+     * @param mixed $value The option value.
+     * @return void
+     *
+     * @throws \InvalidArgumentException If the Processor does not support the option
+     */
+    function setOption($key, $value);
+
+    /**
+     * Sets an array of options.
+     *
+     * @param array $options The array of options.
+     * @return void
+     *
+     * @throws \InvalidArgumentException If the Processor does not support an option
+     */
+    function setOptions(array $options);
 }

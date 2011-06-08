@@ -17,4 +17,7 @@ use Falsep\Sprites\Configuration,
 
 class AbstractProcessorTest extends SpritesTestCase
 {
+    public function testOptions()
+    {
+    }
 }

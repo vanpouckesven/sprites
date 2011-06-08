@@ -17,4 +17,42 @@ use Falsep\Sprites\Configuration,
 
 class FixedProcessorTest extends SpritesTestCase
 {
+    public function testProcessing()
+    {
+        $config = new Configuration();
+        $config->setImagine($this->getImagine());
+        $config->setImage(sprintf('%s/icons.png', $this->path));
+        $config->setStylesheet(sprintf('%s/icons.css', $this->path));
+        $config->setSelector('.icon.%s');
+        $config->getFinder()->name('*.png')->in(__DIR__.'/../Fixtures/icons')->sortByName();
+        $config->setWidth(16);
+
+        $processor = new FixedProcessor();
+        $processor->process($config);
+
+        $sprite = $config->getImagine()->open($config->getImage());
+        $result = $config->getImagine()->open(__DIR__.'/../Fixtures/results/icons.png');
+        $this->assertImageEquals($sprite, $result);
+        $this->assertFileEquals(__DIR__.'/../Fixtures/results/icons.css', $config->getStylesheet());
+    }
+
+    public function testProcessingWithResizing()
+    {
+        $config = new Configuration();
+        $config->setImagine($this->getImagine());
+        $config->setImage(sprintf('%s/icons_resized.png', $this->path));
+        $config->setStylesheet(sprintf('%s/icons_resized.css', $this->path));
+        $config->setSelector('.icon.%s');
+        $config->getFinder()->name('*.png')->in(__DIR__.'/../Fixtures/icons')->sortByName();
+        $config->setWidth(12);
+
+        $processor = new FixedProcessor(array('resize' => true));
+        $processor->process($config);
+
+        $sprite = $config->getImagine()->open($config->getImage());
+        $result = $config->getImagine()->open(__DIR__.'/../Fixtures/results/icons_resized.png');
+        $this->assertImageEquals($sprite, $result);
+        $this->assertFileEquals(__DIR__.'/../Fixtures/results/icons_resized.css', $config->getStylesheet());
+    }
+    
 }

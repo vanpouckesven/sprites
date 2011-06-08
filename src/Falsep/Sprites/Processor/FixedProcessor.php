@@ -19,16 +19,35 @@ use Imagine\Image\Box,
 class FixedProcessor extends AbstractProcessor
 {
     /**
+     * Constructor.
+     *
+     * @param array $options (optional) An array of options.
+     * @return void
+     */
+    public function __construct(array $options = array())
+    {
+        $this->options = array(
+            'resize' => false,
+        );
+
+        $this->setOptions($options);
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function process(Configuration $config)
     {
-        $selector = $config->getSelector();
         $sprite = $config->getImagine()->create(new Box(ceil($config->getWidth() * iterator_count($config->getFinder())), 1));
         $pointer = 0;
         $styles = '';
         foreach ($config->getFinder() as $file) {
             $image = $config->getImagine()->open($file->getRealPath());
+
+            // resize if image exceeds fixed with
+            if (true === $this->getOption('resize') && $image->getSize()->getWidth() > $config->getWidth()) {
+                $image->resize(new Box($config->getWidth(), round($image->getSize()->getHeight() / $image->getSize()->getWidth() * $config->getWidth())));
+            }
 
             // adjust height if necessary
             if ($image->getSize()->getHeight() > $sprite->getSize()->getHeight()) {
@@ -40,7 +59,7 @@ class FixedProcessor extends AbstractProcessor
             $sprite->paste($image, new Point($pointer, 0));
 
             // append stylesheet code
-            $styles .= $this->parseCssRule($selector, $file, $pointer);
+            $styles .= $this->parseCssRule($config->getSelector(), $file, $pointer);
 
             // move horizontal cursor
             $pointer += $config->getWidth();

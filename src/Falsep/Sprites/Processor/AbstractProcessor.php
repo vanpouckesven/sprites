@@ -18,6 +18,13 @@ use Imagine\ImageInterface;
 abstract class AbstractProcessor implements ProcessorInterface
 {
     /**
+     * An array of options.
+     *
+     * @var array
+     */
+    protected $options = array();
+
+    /**
      * {@inheritDoc}
      */
     public function getName()
@@ -25,6 +32,51 @@ abstract class AbstractProcessor implements ProcessorInterface
         preg_match('/\\\\(\w+?)?(Processor)?$/i', get_class($this), $matches);
 
         return strtolower($matches[1]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getOption($key)
+    {
+        if (!array_key_exists($key, $this->options)) {
+            throw new \InvalidArgumentException(sprintf('The Processor does not support the "%s" option.', $key));
+        }
+
+        return $this->options[$key];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setOption($key, $value)
+    {
+        if (!array_key_exists($key, $this->options)) {
+            throw new \InvalidArgumentException(sprintf('The Processor does not support the "%s" option.', $key));
+        }
+
+        $this->options[$key] = $value;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setOptions(array $options)
+    {
+        $invalid = array();
+        $isInvalid = false;
+        foreach ($options as $key => $value) {
+            if (array_key_exists($key, $this->options)) {
+                $this->options[$key] = $value;
+            } else {
+                $isInvalid = true;
+                $invalid[] = $key;
+            }
+        }
+
+        if ($isInvalid) {
+            throw new \InvalidArgumentException(sprintf('The Processor does not support the following options: "%s".', implode('\', \'', $invalid)));
+        }
     }
 
     /**

@@ -18,6 +18,9 @@ use Imagine\Gd,
 
 class SpritesTestCase extends ImagineTestCase
 {
+    /**
+     * {@inheritDoc}
+     */
     public function setUp()
     {
         $this->path = sys_get_temp_dir().'/falsep/sprites';
@@ -25,9 +28,12 @@ class SpritesTestCase extends ImagineTestCase
         $this->createDirectory($this->path);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function tearDown()
     {
-       // $this->clearDirectory($this->path);
+       $this->clearDirectory($this->path);
     }
 
     /**

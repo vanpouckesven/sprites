@@ -23,7 +23,6 @@ class DynamicProcessor extends AbstractProcessor
      */
     public function process(Configuration $config)
     {
-        $selector = $config->getSelector();
         $sprite = $config->getImagine()->create(new Box(1, 1));
         $pointer = 0;
         $styles = '';
@@ -43,7 +42,7 @@ class DynamicProcessor extends AbstractProcessor
             $sprite->paste($image, new Point($pointer, 0));
 
             // append stylesheet code
-            $styles .= $this->parseCssRule($selector, $file, $pointer);
+            $styles .= $this->parseCssRule($config->getSelector(), $file, $pointer);
 
             // move horizontal cursor
             $pointer += $image->getSize()->getWidth();
