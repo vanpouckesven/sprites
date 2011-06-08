@@ -18,7 +18,7 @@ interface ProcessorInterface
     /**
      * Processes the Configuration instance.
      *
-     * @param \Falsep\Sprites\Configration
+     * @param \Falsep\Sprites\Configration The Configuration instance
      * @return void
      */
     function process(Configuration $config);

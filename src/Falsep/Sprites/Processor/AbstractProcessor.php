@@ -11,6 +11,10 @@
 
 namespace Falsep\Sprites\Processor;
 
+use Falsep\Sprites\Configuration;
+
+use Imagine\ImageInterface;
+
 abstract class AbstractProcessor implements ProcessorInterface
 {
     /**
@@ -26,7 +30,7 @@ abstract class AbstractProcessor implements ProcessorInterface
     /**
      * @see http://sourcecookbook.com/en/recipes/8/function-to-slugify-strings-in-php
      */
-    static public function asciify(\SplFileInfo $file)
+    protected function asciify(\SplFileInfo $file)
     {
         // replace non letter or digits by - and trim -
         $ascii = trim(preg_replace('~[^\\pL\d]+~u', '-', $file->getBasename(pathinfo($file->getBasename(), \PATHINFO_EXTENSION))), '-');
@@ -47,10 +51,12 @@ abstract class AbstractProcessor implements ProcessorInterface
     }
 
     /**
-     * @param array|string $paths
+     * Creates the given directory.
+     *
+     * @param array|string $paths An array of directories or a single directory
      * @return void
      *
-     * @throws \RuntimeException
+     * @throws \RuntimeException If a directory cannot be created
      */
     protected function createDirectory($paths)
     {
@@ -62,6 +68,45 @@ abstract class AbstractProcessor implements ProcessorInterface
             if (!is_dir($dir = dirname($path)) && false === @mkdir($dir, 0777, true)) {
                 throw new \RuntimeException(sprintf('Unable to create directory "%s".', $dir));
             }
+        }
+    }
+
+    /**
+     * Parses the CSS rule.
+     *
+     * @param string $selector The CSS selector
+     * @param \SplFileInfo $file The SplFileInfo instance
+     * @param integer $pointer The current pointer
+     * @return string
+     */
+    protected function parseCssRule($selector, \SplFileInfo $file, $pointer)
+    {
+        return sprintf("%s{background-position:%dpx 0px}\n", sprintf($selector, $this->asciify($file)), $pointer);
+    }
+
+    /**
+     * Saves the image sprite and stylesheet.
+     *
+     * @param \Falsep\Sprites\Configuration $config The Configuration instance
+     * @param \Imagine\ImageInterface $image The ImageInterface instance
+     * @param string $styles The CSS stylesheet
+     * @return void
+     *
+     * @throws \RuntimeException If the image sprite could not be saved
+     * @throws \RuntimeException If the stylesheet could not be saved
+     */
+    protected function save(Configuration $config, ImageInterface $image, $styles)
+    {
+        $this->createDirectory(array($config->getImage(), $config->getStylesheet()));
+
+        try {
+            $image->save($config->getImage(), $config->getOptions());
+        } catch (\RuntimeException $e) {
+            throw new \RuntimeException(sprintf('Unable to write file "%s".', $config->getImage()));
+        }
+
+        if (false === @file_put_contents($config->getStylesheet(), $styles)) {
+            throw new \RuntimeException(sprintf('Unable to write file "%s".', $config->getStylesheet()));
         }
     }
 }

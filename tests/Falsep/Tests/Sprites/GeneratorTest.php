@@ -14,31 +14,43 @@ namespace Falsep\Tests\Sprites;
 use Falsep\Sprites\Configuration,
     Falsep\Sprites\Generator,
     Falsep\Sprites\Processor\DynamicProcessor,
+    Falsep\Sprites\Processor\FixedProcessor,
     Falsep\Sprites\Test\SpritesTestCase;
 
 class GeneratorTest extends SpritesTestCase
 {
-    public function testDynamicGeneration()
+    public function testGeneration()
     {
-        $configuration = new Configuration();
-        $configuration->setImagine($this->getImagine());
-        $configuration->setImage(sprintf('%s/flags.png', $this->path));
-        $configuration->setStylesheet(sprintf('%s/flags.css', $this->path));
-        $configuration->getFinder()->name('*.png')->in(__DIR__.'/Fixtures/flags');
+        $dynamic = new Configuration();
+        $dynamic->setImagine($this->getImagine());
+        $dynamic->setImage(sprintf('%s/flags.png', $this->path));
+        $dynamic->setStylesheet(sprintf('%s/flags.css', $this->path));
+        $dynamic->setSelector('.flags.%s');
+        $dynamic->getFinder()->name('*.png')->in(__DIR__.'/Fixtures/flags');
 
-        $processor = new DynamicProcessor();
-        $generator = new Generator(array($configuration), array($processor));
+        $fixed = new Configuration();
+        $fixed->setImagine($this->getImagine());
+        $fixed->setImage(sprintf('%s/icons.png', $this->path));
+        $fixed->setStylesheet(sprintf('%s/icons.css', $this->path));
+        $fixed->setSelector('.icons.%s');
+        $fixed->getFinder()->name('*.png')->in(__DIR__.'/Fixtures/icons');
+        $fixed->setWidth(16);
+
+        $generator = new Generator();
+        $generator->addConfiguration($dynamic);
+        $generator->addConfiguration($fixed);
+        $generator->addProcessor(new DynamicProcessor());
+        $generator->addProcessor(new FixedProcessor());
         $generator->generate();
 
-        $sprite = $config->getImagine()->open($config->getImage());
-        $this->assertEquals(161, $sprite->getSize()->getWidth());
-        $this->assertEquals(11, $sprite->getSize()->getHeight());
+        $sprite = $dynamic->getImagine()->open($dynamic->getImage());
+        $result = $dynamic->getImagine()->open(__DIR__.'/Fixtures/results/flags.png');
+        $this->assertImageEquals($sprite, $result);
+        $this->assertFileEquals(__DIR__.'/Fixtures/results/flags.css', $dynamic->getStylesheet());
 
-        // @todo make use of $this->assertImageEquals();
-    }
-
-    public function testFixedGeneration()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
+        $sprite = $fixed->getImagine()->open($fixed->getImage());
+        $result = $fixed->getImagine()->open(__DIR__.'/Fixtures/results/icons.png');
+        $this->assertImageEquals($result, $sprite);
+        $this->assertFileEquals(__DIR__.'/Fixtures/results/icons.css', $fixed->getStylesheet());
     }
 }

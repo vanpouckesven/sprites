@@ -28,17 +28,20 @@ class GenerateDynamicSpritesCommand extends GenerateSpritesCommand
         $this
             ->setName('generate:dynamic')
             ->setDefinition(array(
-                new InputArgument('source', InputArgument::REQUIRED),
-                new InputArgument('pattern', InputArgument::REQUIRED),
-                new InputArgument('image', InputArgument::REQUIRED),
-                new InputArgument('stylesheet', InputArgument::REQUIRED),
-                new InputArgument('selector', InputArgument::REQUIRED),
-                new InputOption('driver', null, InputOption::VALUE_OPTIONAL),
-                new InputOption('options', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY),
+                new InputArgument('source', InputArgument::REQUIRED, 'The path to the source directory.'),
+                new InputArgument('pattern', InputArgument::REQUIRED, 'The pattern to find files.'),
+                new InputArgument('image', InputArgument::REQUIRED, 'The path to the target image.'),
+                new InputArgument('stylesheet', InputArgument::REQUIRED, 'The path to the target stylesheet.'),
+                new InputArgument('selector', InputArgument::REQUIRED, 'The CSS selector.'),
+                new InputOption('driver', 'd', InputOption::VALUE_OPTIONAL, 'The Imagine driver.'),
+                new InputOption('options', 'o', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'The Imagine driver options.'),
             ))
-            ->setDescription('')
+            ->setDescription('Generate an image sprite and CSS stylesheet with dynamic dimensions.')
             ->setHelp(<<<EOT
+The <info>generate:dynamic</info> command generates image sprites and CSS
+stylesheets with dynamic dimensions:
 
+  <info>./sprites generate:dynamic --driver=gd web/images/flags "*.png" web/images/flags.png web/css/flags.css ".flag.%s"</info>
 EOT
             )
         ;

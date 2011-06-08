@@ -28,19 +28,21 @@ class GenerateFixedSpritesCommand extends GenerateSpritesCommand
         $this
             ->setName('generate:fixed')
             ->setDefinition(array(
-                new InputArgument('source', InputArgument::REQUIRED),
-                new InputArgument('pattern', InputArgument::REQUIRED),
-                new InputArgument('image', InputArgument::REQUIRED),
-                new InputArgument('stylesheet', InputArgument::REQUIRED),
-                new InputArgument('selector', InputArgument::REQUIRED),
-                new InputOption('driver', null, InputOption::VALUE_OPTIONAL),
-                new InputOption('options', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY),
-                new InputOption('width', null, InputOption::VALUE_OPTIONAL),
-                new InputOption('height', null, InputOption::VALUE_OPTIONAL),
+                new InputArgument('source', InputArgument::REQUIRED, 'The path to the source directory.'),
+                new InputArgument('pattern', InputArgument::REQUIRED, 'The pattern to find files.'),
+                new InputArgument('image', InputArgument::REQUIRED, 'The path to the target image.'),
+                new InputArgument('stylesheet', InputArgument::REQUIRED, 'The path to the target stylesheet.'),
+                new InputArgument('selector', InputArgument::REQUIRED, 'The CSS selector.'),
+                new InputOption('driver', 'd', InputOption::VALUE_OPTIONAL, 'The Imagine driver.'),
+                new InputOption('options', 'o', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'The Imagine driver options.'),
+                new InputOption('width', 'w', InputOption::VALUE_REQUIRED, 'The width of an single image.'),
             ))
-            ->setDescription('')
+            ->setDescription('Generate an image sprite and CSS stylesheet with a fixed width dimension.')
             ->setHelp(<<<EOT
+The <info>generate:fixed</info> command generates image sprites and CSS
+stylesheets with a fixed width dimension:
 
+  <info>./sprites generate:fixed --driver=gd --width=16 web/images/icons "*.png" web/images/icons.png web/css/icons.css ".icon.%s"</info>
 EOT
             )
         ;
@@ -53,11 +55,6 @@ EOT
     {
         $configuration = $this->getConfiguration($input);
         $configuration->setWidth($input->getOption('width'));
-        $configuration->setHeight($input->getOption('height'));
-
-        if ($configuration->getProcessor() !== Configuration::PROCESSOR_FIXED) {
-            throw new \InvalidArgumentException('You must either provide a fixed width or height.');
-        }
 
         $processor = new FixedProcessor();
         $processor->process($configuration);

@@ -27,7 +27,7 @@ class SpritesTestCase extends ImagineTestCase
 
     public function tearDown()
     {
-        $this->clearDirectory($this->path);
+       // $this->clearDirectory($this->path);
     }
 
     /**

@@ -63,13 +63,6 @@ class Configuration
     private $width;
 
     /**
-     * The fixed height per image.
-     *
-     * @var integer
-     */
-    private $height;
-
-    /**
      * The target stylesheet path.
      *
      * @var string
@@ -77,9 +70,9 @@ class Configuration
     private $stylesheet;
 
     /**
-     * The CSS selector callable.
+     * The CSS selector.
      *
-     * @var callable
+     * @var string
      */
     private $selector;
 
@@ -173,15 +166,14 @@ class Configuration
     }
 
     /**
-     * Returns the name of the image Processor instance to use.
+     * Returns the name of the image ProcessorInterface instance to use.
      *
-     * @return strings
+     * @return string
      */
     public function getProcessor()
     {
         if (null === $this->processor) {
-            // fixed dimensions?
-            if (null !== $this->width || null !== $this->height) {
+            if (null !== $this->width) {
                 return self::PROCESSOR_FIXED;
             }
 
@@ -192,9 +184,9 @@ class Configuration
     }
 
     /**
-     * Sets the name of the image Processor instance to use.
+     * Sets the name of the image ProcessorInterface instance to use.
      *
-     * @param string $name
+     * @param string $name The ProcessorInterface name
      * @return void
      */
     public function setProcessor($name)
@@ -224,27 +216,6 @@ class Configuration
     }
 
     /**
-     * Returns the fixed height per image.
-     *
-     * @return integer
-     */
-    public function getHeight()
-    {
-        return $this->height;
-    }
-
-    /**
-     * Sets the fixed height per image.
-     *
-     * @return integer $height The fixed height per image
-     * @return void
-     */
-    public function setHeight($height)
-    {
-        $this->height = $height;
-    }
-
-    /**
      * Returns the target stylesheet path.
      *
      * @return string
@@ -266,9 +237,9 @@ class Configuration
     }
 
     /**
-     * Returns the CSS selector callable.
+     * Returns the CSS selector.
      *
-     * @return callable
+     * @return string
      */
     public function getSelector()
     {
@@ -276,9 +247,9 @@ class Configuration
     }
 
     /**
-     * Sets the CSS selector callable.
+     * Sets the CSS selector.
      *
-     * @param callable $selector The CSS selector callable
+     * @param string $selector The CSS selector
      * @return void
      */
     public function setSelector($selector)

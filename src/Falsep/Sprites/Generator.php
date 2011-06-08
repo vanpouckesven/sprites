@@ -23,8 +23,8 @@ class Generator
     /**
      * Constructor.
      *
-     * @param array $configs (optional)
-     * @param array $processors (optional)
+     * @param array $configs (optional) An array of Configuration instances
+     * @param array $processors (optional) An array of ProcessorInterface instances
      * @return void
      */
     public function __construct(array $configs = array(), array $processors = array())
@@ -39,7 +39,7 @@ class Generator
     /**
      * Adds a Configuration instance.
      *
-     * @param \Falsep\Sprites\Configuration $config
+     * @param \Falsep\Sprites\Configuration $config The Configuration instance
      * @return void
      */
     public function addConfiguration(Configuration $config)
@@ -48,7 +48,7 @@ class Generator
     }
 
     /**
-     * Returns the Configuration instances.
+     * Returns an array of Configuration instances.
      *
      * @return array
      */
@@ -72,7 +72,7 @@ class Generator
     /**
      * Adds a ProcesserInterface instance.
      *
-     * @param ProcessorInterface $processor
+     * @param ProcessorInterface $processor The ProcessorInterface instance
      * @return void
      */
     public function addProcessor(ProcessorInterface $processor)
@@ -83,7 +83,7 @@ class Generator
     /**
      * Returns a ProcessorInterface instance.
      *
-     * @param string $name
+     * @param string $name The ProcessorInterface name
      * @return ProcessorInterface
      *
      * @throws \InvalidArgumentException
@@ -109,7 +109,8 @@ class Generator
 
     /**
      * Checks if a ProcessorInterface instance exists.
-     * @param string $name
+     *
+     * @param string $name The ProcessorInterface name
      * @return boolean
      */
     public function hasProcessor($name)

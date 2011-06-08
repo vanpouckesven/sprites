@@ -23,6 +23,7 @@ class DynamicProcessor extends AbstractProcessor
      */
     public function process(Configuration $config)
     {
+        $selector = $config->getSelector();
         $sprite = $config->getImagine()->create(new Box(1, 1));
         $pointer = 0;
         $styles = '';
@@ -42,23 +43,12 @@ class DynamicProcessor extends AbstractProcessor
             $sprite->paste($image, new Point($pointer, 0));
 
             // append stylesheet code
-            // @todo use selector callable
-            $styles .= sprintf("%s%s{background-position:%dpx 0px}\n", $config->getSelector(), self::asciify($file), $pointer);
+            $styles .= $this->parseCssRule($selector, $file, $pointer);
 
             // move horizontal cursor
             $pointer += $image->getSize()->getWidth();
         }
 
-        $this->createDirectory(array($config->getImage(), $config->getStylesheet()));
-
-        try {
-            $sprite->save($config->getImage(), $config->getOptions());
-        } catch (\RuntimeException $e) {
-            throw new \RuntimeException(sprintf('Unable to write file "%s".', $config->getImage()));
-        }
-
-        if (false === @file_put_contents($config->getStylesheet(), $styles)) {
-            throw new \RuntimeException(sprintf('Unable to write file "%s".', $config->getStylesheet()));
-        }
+        $this->save($config, $sprite, $styles);
     }
 }
