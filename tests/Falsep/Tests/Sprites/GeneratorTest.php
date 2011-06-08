@@ -26,14 +26,14 @@ class GeneratorTest extends SpritesTestCase
         $dynamic->setImage(sprintf('%s/flags.png', $this->path));
         $dynamic->setStylesheet(sprintf('%s/flags.css', $this->path));
         $dynamic->setSelector('.flags.%s');
-        $dynamic->getFinder()->name('*.png')->in(__DIR__.'/Fixtures/flags');
+        $dynamic->getFinder()->name('*.png')->in(__DIR__.'/Fixtures/flags')->sortByName();
 
         $fixed = new Configuration();
         $fixed->setImagine($this->getImagine());
         $fixed->setImage(sprintf('%s/icons.png', $this->path));
         $fixed->setStylesheet(sprintf('%s/icons.css', $this->path));
         $fixed->setSelector('.icons.%s');
-        $fixed->getFinder()->name('*.png')->in(__DIR__.'/Fixtures/icons');
+        $fixed->getFinder()->name('*.png')->in(__DIR__.'/Fixtures/icons')->sortByName();
         $fixed->setWidth(16);
 
         $generator = new Generator();
