@@ -33,8 +33,8 @@ class GenerateDynamicSpritesCommand extends GenerateSpritesCommand
                 new InputArgument('image', InputArgument::REQUIRED, 'The path to the target image.'),
                 new InputArgument('stylesheet', InputArgument::REQUIRED, 'The path to the target stylesheet.'),
                 new InputArgument('selector', InputArgument::REQUIRED, 'The CSS selector.'),
-                new InputOption('driver', 'd', InputOption::VALUE_OPTIONAL, 'The Imagine driver.'),
-                new InputOption('options', 'o', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'The Imagine driver options.'),
+                new InputOption('driver', 'd', InputOption::VALUE_OPTIONAL, 'The Imagine driver.', 'gd'),
+                new InputOption('options', 'o', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'The Imagine driver options.', array()),
             ))
             ->setDescription('Generate an image sprite and CSS stylesheet with dynamic dimensions.')
             ->setHelp(<<<EOT
