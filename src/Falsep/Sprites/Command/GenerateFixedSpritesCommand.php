@@ -43,7 +43,7 @@ class GenerateFixedSpritesCommand extends GenerateSpritesCommand
 The <info>generate:fixed</info> command generates image sprites and CSS
 stylesheets with a fixed width dimension:
 
-  <info>./sprites generate:fixed --driver=gd --width=16 web/images/icons "*.png" web/images/icons.png web/css/icons.css ".icon.%s"</info>
+  <info>./sprites generate:fixed --driver=gd --width=16 --resize=1 web/images/icons "*.png" web/images/icons.png web/css/icons.css ".icon.%s"</info>
 EOT
             )
         ;
