@@ -32,7 +32,8 @@ A simple configuration of a ``Falsep\Sprites\ProcessorInterface`` requires a
 
     use Falsep\Sprites\Configuration,
         Falsep\Sprites\Processor\DynamicProcessor;
-        Imagine\Gd\Imagine;
+        Imagine\Gd\Imagine,
+        Imagine\Image\Color;
 
     require_once '/path/to/sprites/autoload.php';
 
@@ -40,6 +41,7 @@ A simple configuration of a ``Falsep\Sprites\ProcessorInterface`` requires a
 
     $config = new Configuration();
     $config->setImagine($imagine);
+    $config->setColor(new Color('fff', 100));
     $config->setImage('web/images/icons.png');
     $config->setStylesheet('web/css/icons.css');
     $config->getFinder()->name('*.png')->in('web/images/icons');
@@ -109,6 +111,16 @@ The path to the target image sprite.
 .. note::
 
     If the directory does not exist yet, it will automatically be created.
+
+Color (***OPTIONAL***)
+^^^^^^^^^^^^^^^^^^^^^^
+.. code-block:: php
+
+    <?php
+    $config->setColor($color);
+    $config->getColor();
+
+The ``Imagine\Image\Color`` instance to use as background color.
 
 Processor (***OPTIONAL***)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^

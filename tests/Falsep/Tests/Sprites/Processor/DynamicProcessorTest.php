@@ -21,6 +21,7 @@ class DynamicProcessorTest extends SpritesTestCase
     {
         $config = new Configuration();
         $config->setImagine($this->getImagine());
+        $config->setColor($this->getColor());
         $config->setImage(sprintf('%s/flags.png', $this->path));
         $config->setStylesheet(sprintf('%s/flags.css', $this->path));
         $config->setSelector('.flag.%s');
@@ -33,6 +34,5 @@ class DynamicProcessorTest extends SpritesTestCase
         $result = $config->getImagine()->open(__DIR__.'/../Fixtures/results/flags.png');
         $this->assertImageEquals($sprite, $result);
         $this->assertFileEquals(__DIR__.'/../Fixtures/results/flags.css', $config->getStylesheet());
-
     }
 }

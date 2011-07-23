@@ -13,7 +13,8 @@ namespace Falsep\Sprites;
 
 use Symfony\Component\Finder\Finder;
 
-use Imagine\ImagineInterface;
+use Imagine\ImagineInterface,
+    Imagine\Image\Color;
 
 class Configuration
 {
@@ -54,6 +55,13 @@ class Configuration
      * @var string
      */
     private $image;
+
+    /**
+     * The Color instance.
+     *
+     * @var \Imagine\Image\Color
+     */
+    private $color;
 
     /**
      * The fixed width per image.
@@ -163,6 +171,27 @@ class Configuration
     public function setImage($path)
     {
         $this->image = $path;
+    }
+
+    /**
+     * Returns the Color instance.
+     *
+     * @return \Imagine\Image\Color
+     */
+    public function getColor()
+    {
+        return $this->color;
+    }
+
+    /**
+     * Sets the Color instance.
+     *
+     * @param \Imagine\Image\Color $color The Color instance.
+     * @return void
+     */
+    public function setColor(Color $color)
+    {
+        $this->color = $color;
     }
 
     /**

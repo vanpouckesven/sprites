@@ -23,6 +23,7 @@ class GeneratorTest extends SpritesTestCase
     {
         $dynamic = new Configuration();
         $dynamic->setImagine($this->getImagine());
+        $dynamic->setColor($this->getColor());
         $dynamic->setImage(sprintf('%s/flags.png', $this->path));
         $dynamic->setStylesheet(sprintf('%s/flags.css', $this->path));
         $dynamic->setSelector('.flag.%s');
@@ -30,6 +31,7 @@ class GeneratorTest extends SpritesTestCase
 
         $fixed = new Configuration();
         $fixed->setImagine($this->getImagine());
+        $fixed->setColor($this->getColor());
         $fixed->setImage(sprintf('%s/icons.png', $this->path));
         $fixed->setStylesheet(sprintf('%s/icons.css', $this->path));
         $fixed->setSelector('.icon.%s');

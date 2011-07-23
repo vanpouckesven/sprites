@@ -14,6 +14,7 @@ namespace Falsep\Sprites\Test;
 use Imagine\Gd,
     Imagine\Gmagick,
     Imagine\Imagick,
+    Imagine\Image\Color,
     Imagine\Test\ImagineTestCase;
 
 class SpritesTestCase extends ImagineTestCase
@@ -33,7 +34,7 @@ class SpritesTestCase extends ImagineTestCase
      */
     public function tearDown()
     {
-       $this->clearDirectory($this->path);
+        $this->clearDirectory($this->path);
     }
 
     /**
@@ -114,5 +115,17 @@ class SpritesTestCase extends ImagineTestCase
             case 'imagick':
                 return new Imagick\Imagine();
         }
+    }
+
+    /**
+     * Returns a Color instance.
+     *
+     * @param array|string $color (optional)
+     * @param integer $alpha (optional)
+     * @return \Imagine\Image\Color
+     */
+    protected function getColor($color = array(255, 255, 255), $alpha = 100)
+    {
+        return new Color($color, $alpha);
     }
 }

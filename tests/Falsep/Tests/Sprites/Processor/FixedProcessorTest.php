@@ -21,6 +21,7 @@ class FixedProcessorTest extends SpritesTestCase
     {
         $config = new Configuration();
         $config->setImagine($this->getImagine());
+        $config->setColor($this->getColor());
         $config->setImage(sprintf('%s/icons.png', $this->path));
         $config->setStylesheet(sprintf('%s/icons.css', $this->path));
         $config->setSelector('.icon.%s');
@@ -40,6 +41,7 @@ class FixedProcessorTest extends SpritesTestCase
     {
         $config = new Configuration();
         $config->setImagine($this->getImagine());
+        $config->setColor($this->getColor());
         $config->setImage(sprintf('%s/icons_resized.png', $this->path));
         $config->setStylesheet(sprintf('%s/icons_resized.css', $this->path));
         $config->setSelector('.icon.%s');
@@ -54,5 +56,5 @@ class FixedProcessorTest extends SpritesTestCase
         $this->assertImageEquals($sprite, $result);
         $this->assertFileEquals(__DIR__.'/../Fixtures/results/icons_resized.css', $config->getStylesheet());
     }
-    
+
 }

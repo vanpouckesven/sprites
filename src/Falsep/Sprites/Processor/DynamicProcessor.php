@@ -23,7 +23,7 @@ class DynamicProcessor extends AbstractProcessor
      */
     public function process(Configuration $config)
     {
-        $sprite = $config->getImagine()->create(new Box(1, 1));
+        $sprite = $config->getImagine()->create(new Box(1, 1), $config->getColor());
         $pointer = 0;
         $styles = '';
         foreach ($config->getFinder() as $file) {
@@ -36,7 +36,7 @@ class DynamicProcessor extends AbstractProcessor
             }
 
             // copy&paste into an extended sprite
-            $sprite = $config->getImagine()->create(new Box($sprite->getSize()->getWidth() + $image->getSize()->getWidth(), $height))->paste($sprite, new Point(0, 0));
+            $sprite = $config->getImagine()->create(new Box($sprite->getSize()->getWidth() + $image->getSize()->getWidth(), $height), $config->getColor())->paste($sprite, new Point(0, 0));
 
             // paste image into sprite
             $sprite->paste($image, new Point($pointer, 0));

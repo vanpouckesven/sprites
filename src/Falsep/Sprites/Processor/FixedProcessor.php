@@ -38,7 +38,7 @@ class FixedProcessor extends AbstractProcessor
      */
     public function process(Configuration $config)
     {
-        $sprite = $config->getImagine()->create(new Box(ceil($config->getWidth() * iterator_count($config->getFinder())), 1));
+        $sprite = $config->getImagine()->create(new Box(ceil($config->getWidth() * iterator_count($config->getFinder())), 1), $config->getColor());
         $pointer = 0;
         $styles = '';
         foreach ($config->getFinder() as $file) {
@@ -52,7 +52,7 @@ class FixedProcessor extends AbstractProcessor
             // adjust height if necessary
             if ($image->getSize()->getHeight() > $sprite->getSize()->getHeight()) {
                 // copy&paste into an extended sprite
-                $sprite = $config->getImagine()->create(new Box($sprite->getSize()->getWidth(), $image->getSize()->getHeight()))->paste($sprite, new Point(0, 0));
+                $sprite = $config->getImagine()->create(new Box($sprite->getSize()->getWidth(), $image->getSize()->getHeight()), $config->getColor())->paste($sprite, new Point(0, 0));
             }
 
             // paste image into sprite
