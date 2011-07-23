@@ -33,7 +33,7 @@ abstract class GenerateSpritesCommand extends Command
     {
         $configuration = new Configuration();
 
-        $configuration->setImagine(self::getImagine($input->getOption('driver')));
+        $configuration->setImagine($this->getImagine($input->getOption('driver')));
         $configuration->setOptions($input->getOption('options'));
 
         $configuration->getFinder()
