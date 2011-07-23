@@ -18,7 +18,8 @@ use Falsep\Sprites\Configuration;
 
 use Imagine\Gd,
     Imagine\Gmagick,
-    Imagine\Imagick;
+    Imagine\Imagick,
+    Imagine\Image\Color;
 
 abstract class GenerateSpritesCommand extends Command
 {
@@ -40,6 +41,7 @@ abstract class GenerateSpritesCommand extends Command
                ->in($input->getArgument('source'));
 
         $configuration->setImage($input->getArgument('image'));
+        $configuration->setColor(new Color($input->getOption('color'), $input->getOption('alpha')));
         $configuration->setStylesheet($input->getArgument('stylesheet'));
         $configuration->setSelector($input->getArgument('selector'));
 

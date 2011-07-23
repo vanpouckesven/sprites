@@ -35,6 +35,8 @@ class GenerateFixedSpritesCommand extends GenerateSpritesCommand
                 new InputArgument('selector', InputArgument::REQUIRED, 'The CSS selector.'),
                 new InputOption('driver', 'd', InputOption::VALUE_OPTIONAL, 'The Imagine driver.', 'gd'),
                 new InputOption('options', 'o', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'The Imagine driver options.', array()),
+                new InputOption('color', 'c', InputOption::VALUE_OPTIONAL, 'The RGB color model.', 'fff'),
+                new InputOption('alpha', 'a', InputOption::VALUE_OPTIONAL, 'The alpha compositing.', 100),
                 new InputOption('resize', 'r', InputOption::VALUE_OPTIONAL, 'Whether to resize the image if it exceeds the fixed width.', false),
                 new InputOption('width', 'w', InputOption::VALUE_REQUIRED, 'The width of an single image.'),
             ))
