@@ -58,7 +58,7 @@ class Generator
     }
 
     /**
-     * Returns the Configuration instances.
+     * Sets the Configuration instances.
      *
      * @return array
      */
