@@ -1,5 +1,5 @@
-[submodule "src/vendor/imagine"]
-	path = src/vendor/imagine
+[submodule "src/vendor/Imagine"]
+	path = src/vendor/Imagine
 	url = git://github.com/avalanche123/Imagine.git
 [submodule "src/vendor/Symfony/Component/ClassLoader"]
 	path = src/vendor/Symfony/Component/ClassLoader
