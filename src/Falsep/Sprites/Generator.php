@@ -64,9 +64,7 @@ class Generator
      */
     public function setConfigurations(array $configs)
     {
-        foreach ($configs as $config) {
-            $this->addConfiguration($config);
-        }
+        $this->configs = $configs;
     }
 
     /**
