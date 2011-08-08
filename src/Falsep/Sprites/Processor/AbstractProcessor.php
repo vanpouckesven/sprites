@@ -30,7 +30,9 @@ abstract class AbstractProcessor implements ProcessorInterface
     public function getOption($key)
     {
         if (!array_key_exists($key, $this->options)) {
+            // @codeCoverageIgnoreStart
             throw new \InvalidArgumentException(sprintf('The Processor does not support the "%s" option.', $key));
+            // @codeCoverageIgnoreEnd
         }
 
         return $this->options[$key];
@@ -42,7 +44,9 @@ abstract class AbstractProcessor implements ProcessorInterface
     public function setOption($key, $value)
     {
         if (!array_key_exists($key, $this->options)) {
+            // @codeCoverageIgnoreStart
             throw new \InvalidArgumentException(sprintf('The Processor does not support the "%s" option.', $key));
+            // @codeCoverageIgnoreEnd
         }
 
         $this->options[$key] = $value;
@@ -65,7 +69,9 @@ abstract class AbstractProcessor implements ProcessorInterface
         }
 
         if ($isInvalid) {
+            // @codeCoverageIgnoreStart
             throw new \InvalidArgumentException(sprintf('The Processor does not support the following options: "%s".', implode('\', \'', $invalid)));
+            // @codeCoverageIgnoreEnd
         }
     }
 
@@ -86,7 +92,9 @@ abstract class AbstractProcessor implements ProcessorInterface
         $ascii = preg_replace('~[^-\w]+~', '', strtolower($ascii));
 
         if (empty($ascii)) {
+            // @codeCoverageIgnoreStart
             throw new \RuntimeException(sprintf('Unable to ASCIIfiy "%s".', $file->getFilename()));
+            // @codeCoverageIgnoreEnd
         }
 
         return $ascii;
@@ -108,7 +116,9 @@ abstract class AbstractProcessor implements ProcessorInterface
 
         foreach ($paths as $path) {
             if (!is_dir($dir = dirname($path)) && false === @mkdir($dir, 0777, true)) {
+                // @codeCoverageIgnoreStart
                 throw new \RuntimeException(sprintf('Unable to create directory "%s".', $dir));
+                // @codeCoverageIgnoreEnd
             }
         }
     }
@@ -144,11 +154,16 @@ abstract class AbstractProcessor implements ProcessorInterface
         try {
             $image->save($config->getImage(), $config->getOptions());
         } catch (\RuntimeException $e) {
+            // @codeCoverageIgnoreStart
             throw new \RuntimeException(sprintf('Unable to write file "%s".', $config->getImage()));
+            // @codeCoverageIgnoreEnd
+
         }
 
         if (false === @file_put_contents($config->getStylesheet(), $styles)) {
+            // @codeCoverageIgnoreStart
             throw new \RuntimeException(sprintf('Unable to write file "%s".', $config->getStylesheet()));
+            // @codeCoverageIgnoreEnd
         }
     }
 }

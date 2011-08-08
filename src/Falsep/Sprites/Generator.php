@@ -89,7 +89,9 @@ class Generator
     public function getProcessor($name)
     {
         if (!isset($this->processors[$name])) {
+            // @codeCoverageIgnoreStart
             throw new \InvalidArgumentException(sprintf('Processor "%s" does not exist.', $name));
+            // @codeCoverageIgnoreEnd
         }
 
         return $this->processors[$name];

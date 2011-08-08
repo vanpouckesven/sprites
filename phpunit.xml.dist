@@ -20,6 +20,8 @@
         <whitelist>
             <directory>./src/Falsep/</directory>
             <exclude>
+                <directory>./src/Falsep/Sprites/Command</directory>
+                <directory>./src/Falsep/Sprites/Test</directory>
                 <directory>./tests/Falsep/Sprites/Fixtures</directory>
             </exclude>
         </whitelist>
