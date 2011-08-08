@@ -11,13 +11,24 @@
 
 namespace Falsep\Tests\Sprites\Processor;
 
-use Falsep\Sprites\Configuration,
-    Falsep\Sprites\Processor\AbstractProcessor,
-    Falsep\Sprites\Test\SpritesTestCase;
+use Falsep\Sprites\Test\SpritesTestCase;
 
 class AbstractProcessorTest extends SpritesTestCase
 {
     public function testOptions()
     {
+        $processor = new TestProcessor();
+        $this->assertFalse($processor->getOption('test'));
+        $this->assertEquals('bar', $processor->getOption('foo'));
+
+        $processor = new TestProcessor(array('test' => true, 'foo' => 'test'));
+        $this->assertTrue($processor->getOption('test'));
+        $this->assertEquals('test', $processor->getOption('foo'));
+
+        $processor->setOption('test', false);
+        $this->assertFalse($processor->getOption('test'));
+
+        $processor->setOptions(array('foo' => 'bar'));
+        $this->assertEquals('bar', $processor->getOption('foo'));
     }
 }

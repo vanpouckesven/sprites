@@ -21,6 +21,14 @@ class DynamicProcessor extends AbstractProcessor
     /**
      * {@inheritDoc}
      */
+    public function getName()
+    {
+        return 'dynamic';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function process(Configuration $config)
     {
         $sprite = $config->getImagine()->create(new Box(1, 1), $config->getColor());

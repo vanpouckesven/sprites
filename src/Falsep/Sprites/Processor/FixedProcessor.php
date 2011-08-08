@@ -36,6 +36,14 @@ class FixedProcessor extends AbstractProcessor
     /**
      * {@inheritDoc}
      */
+    public function getName()
+    {
+        return 'fixed';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function process(Configuration $config)
     {
         $sprite = $config->getImagine()->create(new Box(ceil($config->getWidth() * iterator_count($config->getFinder())), 1), $config->getColor());

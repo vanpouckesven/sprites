@@ -13,7 +13,7 @@ require_once __DIR__.'/src/vendor/Symfony/Component/ClassLoader/UniversalClassLo
 
 $loader = new \Symfony\Component\ClassLoader\UniversalClassLoader();
 $loader->registerNamespaces(array(
-    'Falsep' => __DIR__.'/src',
+    'Falsep' => array(__DIR__.'/src', __DIR__.'/tests'),
     'Imagine' => __DIR__.'/src/vendor/Imagine/lib',
     'Symfony' => __DIR__.'/src/vendor',
 ));

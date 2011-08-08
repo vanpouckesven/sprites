@@ -56,5 +56,4 @@ class FixedProcessorTest extends SpritesTestCase
         $this->assertImageEquals($sprite, $result);
         $this->assertFileEquals(__DIR__.'/../Fixtures/results/icons_resized.css', $config->getStylesheet());
     }
-
 }

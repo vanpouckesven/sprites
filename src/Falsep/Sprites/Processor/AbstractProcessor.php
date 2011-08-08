@@ -27,16 +27,6 @@ abstract class AbstractProcessor implements ProcessorInterface
     /**
      * {@inheritDoc}
      */
-    public function getName()
-    {
-        preg_match('/\\\\(\w+?)?(Processor)?$/i', get_class($this), $matches);
-
-        return strtolower($matches[1]);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getOption($key)
     {
         if (!array_key_exists($key, $this->options)) {
