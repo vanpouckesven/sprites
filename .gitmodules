@@ -1,6 +1,6 @@
 [submodule "src/vendor/Imagine"]
-	path = src/vendor/Imagine
-	url = git://github.com/avalanche123/Imagine.git
+    path = src/vendor/Imagine
+    url = git://github.com/avalanche123/Imagine.git
 [submodule "src/vendor/Symfony/Component/ClassLoader"]
 	path = src/vendor/Symfony/Component/ClassLoader
 	url = git://github.com/symfony/ClassLoader.git
