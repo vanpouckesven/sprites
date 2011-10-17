@@ -13,7 +13,7 @@ namespace Falsep\Sprites;
 
 use Symfony\Component\Finder\Finder;
 
-use Imagine\ImagineInterface,
+use Imagine\Image\ImagineInterface,
     Imagine\Image\Color;
 
 class Configuration

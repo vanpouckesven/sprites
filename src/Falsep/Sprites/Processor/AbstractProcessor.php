@@ -13,7 +13,7 @@ namespace Falsep\Sprites\Processor;
 
 use Falsep\Sprites\Configuration;
 
-use Imagine\ImageInterface;
+use Imagine\Image\ImageInterface;
 
 abstract class AbstractProcessor implements ProcessorInterface
 {
