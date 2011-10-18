@@ -17,4 +17,5 @@ $loader->registerNamespaces(array(
     'Imagine' => __DIR__.'/src/vendor/Imagine/lib',
     'Symfony' => __DIR__.'/src/vendor',
 ));
+$loader->registerPrefix('Mustache', __DIR__.'/src/vendor/Mustache');
 $loader->register();

@@ -18,6 +18,13 @@ use Imagine\Image\ImageInterface;
 abstract class AbstractProcessor implements ProcessorInterface
 {
     /**
+     * A \Mustache instance.
+     *
+     * @var \Mustache
+     */
+    protected $mustache;
+
+    /**
      * An array of options.
      *
      * @var array
@@ -76,6 +83,36 @@ abstract class AbstractProcessor implements ProcessorInterface
     }
 
     /**
+     * Parses the CSS selector.
+     *
+     * @param string $selector The CSS selector
+     * @param \SplFileInfo $file The SplFileInfo instance
+     * @param integer $pointer The current pointer
+     * @return string
+     */
+    protected function parseSelector($selector, \SplFileInfo $file, $pointer)
+    {
+        return $this->getMustache()->render($selector, array(
+            'filename' => $this->asciify($file),
+            'pointer' => $pointer
+        ));
+    }
+
+    /**
+     * Returns a \Mustache instance.
+     *
+     * @return \Mustache
+     */
+    protected function getMustache()
+    {
+        if (null === $this->mustache) {
+            $this->mustache = new \Mustache();
+        }
+
+        return $this->mustache;
+    }
+
+    /**
      * @see http://sourcecookbook.com/en/recipes/8/function-to-slugify-strings-in-php
      */
     protected function asciify(\SplFileInfo $file)
@@ -98,42 +135,6 @@ abstract class AbstractProcessor implements ProcessorInterface
         }
 
         return $ascii;
-    }
-
-    /**
-     * Creates the given directory.
-     *
-     * @param array|string $paths An array of directories or a single directory
-     * @return void
-     *
-     * @throws \RuntimeException If a directory cannot be created
-     */
-    protected function createDirectory($paths)
-    {
-        if (!is_array($paths)) {
-            $paths = array($paths);
-        }
-
-        foreach ($paths as $path) {
-            if (!is_dir($dir = dirname($path)) && false === @mkdir($dir, 0777, true)) {
-                // @codeCoverageIgnoreStart
-                throw new \RuntimeException(sprintf('Unable to create directory "%s".', $dir));
-                // @codeCoverageIgnoreEnd
-            }
-        }
-    }
-
-    /**
-     * Parses the CSS rule.
-     *
-     * @param string $selector The CSS selector
-     * @param \SplFileInfo $file The SplFileInfo instance
-     * @param integer $pointer The current pointer
-     * @return string
-     */
-    protected function parseCssRule($selector, \SplFileInfo $file, $pointer)
-    {
-        return sprintf("%s{background-position:%dpx 0px}\n", sprintf($selector, $this->asciify($file)), $pointer);
     }
 
     /**
@@ -164,6 +165,29 @@ abstract class AbstractProcessor implements ProcessorInterface
             // @codeCoverageIgnoreStart
             throw new \RuntimeException(sprintf('Unable to write file "%s".', $config->getStylesheet()));
             // @codeCoverageIgnoreEnd
+        }
+    }
+
+    /**
+     * Creates the given directory.
+     *
+     * @param array|string $paths An array of directories or a single directory
+     * @return void
+     *
+     * @throws \RuntimeException If a directory cannot be created
+     */
+    protected function createDirectory($paths)
+    {
+        if (!is_array($paths)) {
+            $paths = array($paths);
+        }
+
+        foreach ($paths as $path) {
+            if (!is_dir($dir = dirname($path)) && false === @mkdir($dir, 0777, true)) {
+                // @codeCoverageIgnoreStart
+                throw new \RuntimeException(sprintf('Unable to create directory "%s".', $dir));
+                // @codeCoverageIgnoreEnd
+            }
         }
     }
 }

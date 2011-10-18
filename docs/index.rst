@@ -45,7 +45,7 @@ A simple configuration of a ``Falsep\Sprites\ProcessorInterface`` requires a
     $config->setImage('web/images/icons.png');
     $config->setStylesheet('web/css/icons.css');
     $config->getFinder()->name('*.png')->in('web/images/icons');
-    $config->setSelector('.icon.%s');
+    $config->setSelector(".icon.{{filename}}{background-position:{{pointer}}px 0px}\n");
 
     $processor = new DynamicProcessor();
     $processor->process($config);
@@ -172,7 +172,7 @@ The path to the target stylesheet.
 
     If the directory does not exist yet, it will automatically be created.
 
-Selector (***REQUIRED***)
+Selector (***OPTIONAL***)
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 .. code-block:: php
 
@@ -180,12 +180,20 @@ Selector (***REQUIRED***)
     $config->setSelector($selector);
     $config->getSelector();
 
-A string used as the CSS selector in the generated CSS stylesheet.
+A string parsed for each image, to be used as the CSS in the generated
+stylesheet.
 
 .. note::
 
-    The string is parsed with ``sprintf()`` and the only available parameter is
-    an ASCIIfied version of the filename.
+    The default value of the ``selector`` is
+    ``".{{filename}}{background-position:{{pointer}}px 0px}\n"``.
+
+.. note::
+
+    The string is parsed with `Mustache`_ and there are two available parameters:
+
+    - **``pointer``:** horizontal position of current pointer (in ``px``)
+    - **``filename``:** an `ASCIIfied`_ version of the filename.
 
 Usage
 -----
@@ -299,4 +307,6 @@ a fixed width dimension::
 .. _`Imagine`: https://github.com/avalanche123/Imagine
 .. _`Symfony`: http://symfony.com/
 .. _`Finder`: http://symfony.com/doc/current/cookbook/tools/finder.html#index-0
+.. _`Mustache`: https://github.com/bobthecow/mustache.php
+.. _`ASCIIfied`: http://sourcecookbook.com/en/recipes/8/function-to-slugify-strings-in-php
 .. _`famfamfam`: http://famfamfam.com/

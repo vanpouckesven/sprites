@@ -24,7 +24,7 @@ class DynamicProcessorTest extends SpritesTestCase
         $config->setColor($this->getColor());
         $config->setImage(sprintf('%s/flags.png', $this->path));
         $config->setStylesheet(sprintf('%s/flags.css', $this->path));
-        $config->setSelector('.flag.%s');
+        $config->setSelector(".flag.{{filename}}{background-position:{{pointer}}px 0px}\n");
         $config->getFinder()->name('*.png')->in(__DIR__.'/../Fixtures/flags')->sortByName();
 
         $processor = new DynamicProcessor();

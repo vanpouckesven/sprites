@@ -26,7 +26,7 @@ class GeneratorTest extends SpritesTestCase
         $dynamic->setColor($this->getColor());
         $dynamic->setImage(sprintf('%s/flags.png', $this->path));
         $dynamic->setStylesheet(sprintf('%s/flags.css', $this->path));
-        $dynamic->setSelector('.flag.%s');
+        $dynamic->setSelector(".flag.{{filename}}{background-position:{{pointer}}px 0px}\n");
         $dynamic->getFinder()->name('*.png')->in(__DIR__.'/Fixtures/flags')->sortByName();
 
         $fixed = new Configuration();
@@ -34,7 +34,7 @@ class GeneratorTest extends SpritesTestCase
         $fixed->setColor($this->getColor());
         $fixed->setImage(sprintf('%s/icons.png', $this->path));
         $fixed->setStylesheet(sprintf('%s/icons.css', $this->path));
-        $fixed->setSelector('.icon.%s');
+        $fixed->setSelector(".icon.{{filename}}{background-position:{{pointer}}px 0px}\n");
         $fixed->getFinder()->name('*.png')->in(__DIR__.'/Fixtures/icons')->sortByName();
         $fixed->setWidth(16);
 

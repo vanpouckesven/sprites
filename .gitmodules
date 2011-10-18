@@ -10,3 +10,6 @@
 [submodule "src/vendor/Symfony/Component/Console"]
 	path = src/vendor/Symfony/Component/Console
 	url = git://github.com/symfony/Console.git
+[submodule "src/vendor/Mustache"]
+	path = src/vendor/Mustache
+	url = git://github.com/bobthecow/mustache.php.git
