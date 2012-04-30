@@ -3,15 +3,15 @@
 /*
  * This file is part of the Sprites package.
  *
- * (c) Pierre Minnieur <pierre@falsep.com>
+ * (c) Pierre Minnieur <pm@pierre-minnieur.de>
  *
  * For the full copyright and license information, please view the LICENSE file
  * that was distributed with this source code.
  */
 
-namespace Falsep\Tests\Sprites\Processor;
+namespace Sprites\Tests\Processor;
 
-use Falsep\Sprites\Test\SpritesTestCase;
+use Sprites\Test\SpritesTestCase;
 
 class AbstractProcessorTest extends SpritesTestCase
 {

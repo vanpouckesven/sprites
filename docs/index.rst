@@ -1,8 +1,3 @@
-.. Sprites documentation master file, created by
-   sphinx-quickstart on Thu Jun  9 10:15:18 2011.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Overview
 ========
 
@@ -13,29 +8,59 @@ Contents:
 
 Installation
 ------------
-Checkout a copy of the code::
 
-    git clone git://github.com/falsep/sprites.git
+Phar file *(coming soon)*
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Sprites also requires the `Imagine`_ library and several `Symfony`_ components::
+Coming soon.
 
-    git submodule update --init
+Composer
+~~~~~~~~
+
+Add the following entry to your ``composer.json``:
+
+.. code-block:: json
+
+    { "require": { "pminnieur/sprites": "dev-master" }}
+
+Checkout `detailed package information on Packagist`_.
+
+Clone from GitHub
+~~~~~~~~~~~~~~~~~
+
+Clone Sprites git repository:
+
+.. code-block:: console
+
+    git clone git://github.com/pminnieur/sprites.git
+
+Download ``composer.phar`` file and install dependencies:
+
+.. code-block:: console
+
+    wget -nc http://getcomposer.org/composer.phar
+    php composer.phar install
+
+Run ``sprites`` executable from ``bin`` directory:
+
+.. code-block:: console
+
+    php bin/sprites
 
 Configuration
 -------------
-A simple configuration of a ``Falsep\Sprites\ProcessorInterface`` requires a
-``Falsep\Sprites\Configuration`` instance
+
+A simple configuration of a ``Sprites\ProcessorInterface`` requires a
+``Sprites\Configuration`` instance
 
 .. code-block:: php
 
     <?php
 
-    use Falsep\Sprites\Configuration,
-        Falsep\Sprites\Processor\DynamicProcessor;
-        Imagine\Gd\Imagine,
-        Imagine\Image\Color;
-
-    require_once '/path/to/sprites/autoload.php';
+    use Sprites\Configuration;
+    use Sprites\Processor\DynamicProcessor;
+    use Imagine\Gd\Imagine;
+    use Imagine\Image\Color;
 
     $imagine = new Imagine();
 
@@ -55,7 +80,7 @@ A simple configuration of a ``Falsep\Sprites\ProcessorInterface`` requires a
 Configuration Options
 ~~~~~~~~~~~~~~~~~~~~~
 The following sections describe all the configuration options available on a
-``Falsep\Sprites\Configuration`` instance.
+``Sprites\Configuration`` instance.
 
 Imagine (***REQUIRED***)
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -130,16 +155,16 @@ Processor (***OPTIONAL***)
     $config->setProcessor($processor);
     $config->getProcessor();
 
-The name of the ``Falsep\Sprites\Processor\ProcessorInterface`` to use. This
-configuration value is only needed if you use the ``Falsep\Sprites\Generator``
+The name of the ``Sprites\Processor\ProcessorInterface`` to use. This
+configuration value is only needed if you use the ``Sprites\Generator``
 and may be guessed automatically, depending if you set a fixed width or not.
 
 .. note::
 
     Sprites already supports two different kind of processors:
 
-    - **dynamic:** ``Falsep\Sprites\Processor\DynamicProcessor``
-    - **fixed:** ``Falsep\Sprites\Processor\FixedProcessor``
+    - **dynamic:** ``Sprites\Processor\DynamicProcessor``
+    - **fixed:** ``Sprites\Processor\FixedProcessor``
 
 Width (***OPTIONAL***)
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -150,12 +175,12 @@ Width (***OPTIONAL***)
     $config->getWidth();
 
 A fixed width for each image in the sprite. This configuration value is only
-used in the ``Falsep\Sprites\Processor\FixedProcessor`` and speeds up generating
+used in the ``Sprites\Processor\FixedProcessor`` and speeds up generating
 the image sprite.
 
 .. note::
 
-    The ``Falsep\Sprites\Processor\FixedProcessor`` could optionally resize
+    The ``Sprites\Processor\FixedProcessor`` could optionally resize
     your images if they exceed the fixed width.
 
 Stylesheet (***REQUIRED***)
@@ -210,8 +235,8 @@ with a dynamic width and height.
 
     <?php
 
-    use Falsep\Sprites\Configuration,
-        Falsep\Sprites\Processor\DynamicProcessor;
+    use Sprites\Configuration;
+    use Sprites\Processor\DynamicProcessor;
 
     $config = new Configuration();
     // ... configure your configuration
@@ -242,8 +267,8 @@ are two main differences:
 
     <?php
 
-    use Falsep\Sprites\Configuration,
-        Falsep\Sprites\Processor\FixedProcessor;
+    use Sprites\Configuration;
+    use Sprites\Processor\FixedProcessor;
 
     $config = new Configuration();
     $config->setWidth(16); // fixed width of 16px per image
@@ -255,19 +280,19 @@ are two main differences:
 Generator
 ~~~~~~~~~
 
-The ``Falsep\Sprites\Generator`` class is used for batch processing multiple
-``Falsep\Sprites\Configuration`` instances with their corresponding
-``Falsep\Sprites\Processor\ProcessorInterface`` instances.
+The ``Sprites\Generator`` class is used for batch processing multiple
+``Sprites\Configuration`` instances with their corresponding
+``Sprites\Processor\ProcessorInterface`` instances.
 
 .. code-block:: php
 
     <?php
 
-    use Falsep\Sprites\Configuration,
-        Falsep\Sprites\Generator,
-        Falsep\Sprites\Processor\DynamicProcessor,
-        Falsep\Sprites\Processor\FixedProcessor;
-        // ... add your processor classes
+    use Sprites\Configuration;
+    use Sprites\Generator;
+    use Sprites\Processor\DynamicProcessor;
+    use Sprites\Processor\FixedProcessor;
+    // ... add your processor classes
 
     $generator = new Generator();
 
@@ -310,3 +335,4 @@ a fixed width dimension::
 .. _`Mustache`: https://github.com/bobthecow/mustache.php
 .. _`ASCIIfied`: http://sourcecookbook.com/en/recipes/8/function-to-slugify-strings-in-php
 .. _`famfamfam`: http://famfamfam.com/
+.. _`detailed package information on Packagist`: http://packagist.org/packages/pminnieur/sprites

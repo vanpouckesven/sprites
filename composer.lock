@@ -1,0 +1,27 @@
+{
+    "hash": "ad5ac3d3ae35234635789ccf2b023271",
+    "packages": [
+        {
+            "package": "imagine/Imagine",
+            "version": "v0.2.8"
+        },
+        {
+            "package": "phly/mustache",
+            "version": "1.0.0"
+        },
+        {
+            "package": "symfony/console",
+            "version": "2.0.x-dev",
+            "source-reference": "b8b23721c41af153ab2506ddae9d89440ec6a538"
+        },
+        {
+            "package": "symfony/finder",
+            "version": "2.0.x-dev",
+            "source-reference": "42e22b1a62010e2a78088c3929d9d0034751bfb8"
+        }
+    ],
+    "packages-dev": null,
+    "aliases": [
+
+    ]
+}

@@ -3,24 +3,26 @@
 /*
  * This file is part of the Sprites package.
  *
- * (c) Pierre Minnieur <pierre@falsep.com>
+ * (c) Pierre Minnieur <pm@pierre-minnieur.de>
  *
  * For the full copyright and license information, please view the LICENSE file
  * that was distributed with this source code.
  */
 
-namespace Falsep\Sprites\Processor;
+namespace Sprites\Processor;
 
-use Falsep\Sprites\Configuration;
+use Sprites\Configuration;
+
+use Phly\Mustache\Mustache;
 
 use Imagine\Image\ImageInterface;
 
 abstract class AbstractProcessor implements ProcessorInterface
 {
     /**
-     * A \Mustache instance.
+     * A Mustache instance.
      *
-     * @var \Mustache
+     * @var Mustache
      */
     protected $mustache;
 
@@ -99,14 +101,14 @@ abstract class AbstractProcessor implements ProcessorInterface
     }
 
     /**
-     * Returns a \Mustache instance.
+     * Returns a Mustache instance.
      *
-     * @return \Mustache
+     * @return Mustache
      */
     protected function getMustache()
     {
         if (null === $this->mustache) {
-            $this->mustache = new \Mustache();
+            $this->mustache = new Mustache();
         }
 
         return $this->mustache;

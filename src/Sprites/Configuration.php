@@ -3,18 +3,18 @@
 /*
  * This file is part of the Sprites package.
  *
- * (c) Pierre Minnieur <pierre@falsep.com>
+ * (c) Pierre Minnieur <pm@pierre-minnieur.de>
  *
  * For the full copyright and license information, please view the LICENSE file
  * that was distributed with this source code.
  */
 
-namespace Falsep\Sprites;
+namespace Sprites;
 
 use Symfony\Component\Finder\Finder;
 
-use Imagine\Image\ImagineInterface,
-    Imagine\Image\Color;
+use Imagine\Image\ImagineInterface;
+use Imagine\Image\Color;
 
 class Configuration
 {

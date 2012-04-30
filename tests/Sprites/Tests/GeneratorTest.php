@@ -3,19 +3,19 @@
 /*
  * This file is part of the Sprites package.
  *
- * (c) Pierre Minnieur <pierre@falsep.com>
+ * (c) Pierre Minnieur <pm@pierre-minnieur.de>
  *
  * For the full copyright and license information, please view the LICENSE file
  * that was distributed with this source code.
  */
 
-namespace Falsep\Tests\Sprites;
+namespace Sprites\Tests;
 
-use Falsep\Sprites\Configuration,
-    Falsep\Sprites\Generator,
-    Falsep\Sprites\Processor\DynamicProcessor,
-    Falsep\Sprites\Processor\FixedProcessor,
-    Falsep\Sprites\Test\SpritesTestCase;
+use Sprites\Configuration;
+use Sprites\Generator;
+use Sprites\Processor\DynamicProcessor;
+use Sprites\Processor\FixedProcessor;
+use Sprites\Test\SpritesTestCase;
 
 class GeneratorTest extends SpritesTestCase
 {

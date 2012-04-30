@@ -3,23 +3,23 @@
 /*
  * This file is part of the Sprites package.
  *
- * (c) Pierre Minnieur <pierre@falsep.com>
+ * (c) Pierre Minnieur <pm@pierre-minnieur.de>
  *
  * For the full copyright and license information, please view the LICENSE file
  * that was distributed with this source code.
  */
 
-namespace Falsep\Sprites\Command;
+namespace Sprites\Command;
 
-use Symfony\Component\Console\Command\Command,
-    Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
 
-use Falsep\Sprites\Configuration;
+use Sprites\Configuration;
 
-use Imagine\Gd,
-    Imagine\Gmagick,
-    Imagine\Imagick,
-    Imagine\Image\Color;
+use Imagine\Gd;
+use Imagine\Gmagick;
+use Imagine\Imagick;
+use Imagine\Image\Color;
 
 abstract class GenerateSpritesCommand extends Command
 {
