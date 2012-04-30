@@ -1,5 +1,5 @@
 {
-    "hash": "ad5ac3d3ae35234635789ccf2b023271",
+    "hash": "1ab96cc7fc91eeb06d61726cab6b085b",
     "packages": [
         {
             "package": "imagine/Imagine",
@@ -20,7 +20,13 @@
             "source-reference": "42e22b1a62010e2a78088c3929d9d0034751bfb8"
         }
     ],
-    "packages-dev": null,
+    "packages-dev": [
+        {
+            "package": "kriswallsmith/assetic",
+            "version": "1.0.x-dev",
+            "source-reference": "272e14b76f9d638b6cf7d94afa64b3ad9261bb6c"
+        }
+    ],
     "aliases": [
 
     ]
