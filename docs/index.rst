@@ -320,19 +320,19 @@ sprites generate:dynamic
 The ``generate:dynamic`` command generates image sprites and CSS stylesheets
 with dynamic dimensions::
 
-    php sprites generate:dynamic --help
+    php bin/sprites generate:dynamic --help
 
 sprites generate:fixed
 ^^^^^^^^^^^^^^^^^^^^^^
 The ``generate:fixed`` command generates image sprites and CSS stylesheets with
 a fixed width dimension::
 
-    php sprites generate:fixed --help
+    php bin/sprites generate:fixed --help
 
 .. _`Imagine`: https://github.com/avalanche123/Imagine
 .. _`Symfony`: http://symfony.com/
 .. _`Finder`: http://symfony.com/doc/current/cookbook/tools/finder.html#index-0
-.. _`Mustache`: https://github.com/bobthecow/mustache.php
+.. _`Mustache`: https://github.com/weierophinney/phly_mustache
 .. _`ASCIIfied`: http://sourcecookbook.com/en/recipes/8/function-to-slugify-strings-in-php
 .. _`famfamfam`: http://famfamfam.com/
 .. _`detailed package information on Packagist`: http://packagist.org/packages/pminnieur/sprites
