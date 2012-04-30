@@ -22,7 +22,7 @@
 
     "require-dev": {
         "kriswallsmith/assetic": "1.0.*"
-    }
+    },
 
     "suggest": {
         "kriswallsmith/assetic": "Asset Management for PHP 5.3"
