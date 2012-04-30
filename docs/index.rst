@@ -6,6 +6,16 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+Overview
+--------
+
+Sprites reads a folder of image files and outputs:
+
+- an image file with all the images stitched together
+- a css file with customizable entries based on the image filenames
+
+For an introduction to the concept of CSS sprites, see for example `CSS-Sprites<http://css-tricks.com/css-sprites/>`_.
+
 Installation
 ------------
 
