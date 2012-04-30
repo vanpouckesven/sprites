@@ -15,10 +15,11 @@ use Symfony\Component\Console\Application;
 use Sprites\Command\GenerateDynamicSpritesCommand,
     Sprites\Command\GenerateFixedSpritesCommand;
 
-$file = __DIR__.'/../vendor/autoload.php';
+$file = __DIR__.'/../vendor/.composer/autoload.php';
 if (!file_exists($file)) {
     throw new RuntimeException('Install dependencies to run sprites.');
 }
+require_once $file;
 
 $console = new Application('Sprites', file_get_contents(__DIR__.'/../VERSION'));
 $console->add(new GenerateDynamicSpritesCommand());
