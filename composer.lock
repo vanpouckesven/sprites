@@ -1,5 +1,5 @@
 {
-    "hash": "1ab96cc7fc91eeb06d61726cab6b085b",
+    "hash": "b0f0492dc7e6fdabc997257be5021dda",
     "packages": [
         {
             "package": "imagine/Imagine",
@@ -8,16 +8,6 @@
         {
             "package": "phly/mustache",
             "version": "1.0.0"
-        },
-        {
-            "package": "symfony/console",
-            "version": "2.0.x-dev",
-            "source-reference": "b8b23721c41af153ab2506ddae9d89440ec6a538"
-        },
-        {
-            "package": "symfony/finder",
-            "version": "2.0.x-dev",
-            "source-reference": "42e22b1a62010e2a78088c3929d9d0034751bfb8"
         }
     ],
     "packages-dev": [
@@ -25,6 +15,18 @@
             "package": "kriswallsmith/assetic",
             "version": "1.0.x-dev",
             "source-reference": "272e14b76f9d638b6cf7d94afa64b3ad9261bb6c"
+        },
+        {
+            "package": "symfony/console",
+            "version": "dev-master",
+            "source-reference": "f62b4157eb3382e48f0a8ea0259d78c85d1933ce",
+            "alias": "2.1.9999999.9999999-dev"
+        },
+        {
+            "package": "symfony/finder",
+            "version": "dev-master",
+            "source-reference": "579244c1b21808bc6f9fe2284bf76cb0dc3f7334",
+            "alias": "2.1.9999999.9999999-dev"
         }
     ],
     "aliases": [
