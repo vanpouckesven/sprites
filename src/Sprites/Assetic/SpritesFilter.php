@@ -11,6 +11,7 @@
 
 namespace Sprites\Assetic;
 
+use Assetic\Asset\AssetInterface;
 use Assetic\Filter\FilterInterface;
 use Sprites\Generator;
 
