@@ -21,13 +21,17 @@ use Imagine\Gmagick;
 use Imagine\Imagick;
 use Imagine\Image\Color;
 
+/**
+ * Base class for sprites command with utility methods
+ */
 abstract class GenerateSpritesCommand extends Command
 {
     /**
      * Returns a Configuration instance.
      *
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @return \Falsep\Sprites\Configuration
+     * @param InputInterface $input
+     *
+     * @return Configuration
      */
     protected function getConfiguration(InputInterface $input)
     {
@@ -52,11 +56,18 @@ abstract class GenerateSpritesCommand extends Command
      * Returns an ImagineInterface instance.
      *
      * @param string $driver (optional)
-     * @return \Imagine\ImagineInterface
+     *
+     * @return \Imagine\Image\ImagineInterface
      *
      * @throws \RuntimeException
      */
     protected function getImagine($driver = null)
+    {
+        $class = self::getImagineClass($driver);
+        return new $class;
+    }
+
+    public static function getImagineClass($driver = null)
     {
         if (null === $driver) {
             switch (true) {
@@ -69,20 +80,20 @@ abstract class GenerateSpritesCommand extends Command
                 case class_exists('Imagick'):
                     $driver = 'imagick';
                     break;
+                default:
+                    throw new \RuntimeException('No suitable image library found');
             }
-        }
-
-        if (!in_array($driver, array('gd', 'gmagick', 'imagick'))) {
-            throw new \RuntimeException(sprintf('Driver "%s" does not exist.', $driver));
         }
 
         switch (strtolower($driver)) {
             case 'gd':
-                return new Gd\Imagine();
+                return 'Imagine\\Gd\\Imagine';
             case 'gmagick':
-                return new Gmagick\Imagine();
+                return 'Imagine\\Gmagick\\Imagine';
             case 'imagick':
-                return new Imagick\Imagine();
+                return 'Imagine\\Imagick\Imagine';
         }
+
+        throw new \RuntimeException(sprintf('Driver "%s" does not exist.', $driver));
     }
 }
